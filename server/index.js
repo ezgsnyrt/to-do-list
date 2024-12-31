@@ -47,9 +47,11 @@ const Task = mongoose.model("task", taskSchema);
 app.get("/tasks", async (req, res) => {
     try {
         const tasks = await Task.find();
-        console.log("tasks:", tasks);
+        // console.log("tasks:", tasks);
+        console.log(`[GET/tasks] Retrieved ${tasks.length} tasks.`);
         res.json(tasks);
     } catch (err) {
+        console.error(`[GET/tasks] Error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
 });
@@ -57,12 +59,14 @@ app.get("/tasks", async (req, res) => {
 app.post("/tasks", async (req, res) => {
     try {
         if (!req.body.title) {
+            console.warn(`[POST/tasks] Validation failed: Title is required.`);
             return res.status(400).json({ error: "Title is required" });
         }
 
         const newTask = new Task(req.body);
         await newTask.save();
 
+        console.log(`[POST/tasks] Task created successfully with ID: ${newTask._id}`);
         res.status(201).json(newTask);
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -75,15 +79,18 @@ app.put("/tasks/:id", async (req, res) => {
         const updatedTask = await Task.findByIdAndUpdate(id, req.body);
 
         if (!updatedTask) {
+            console.warn(`[PUT/tasks/${id}] Task not found.`);
             return res.status(404).json({ error: "Task cannot be found!" });
         }
 
+        console.log(`[PUT/tasks/${id}] Task updated successfully.`);
         res.json({
             message: "Task has been updated successfully!",
             updatedTask,
         });
     } catch (err) {
-        console.error(err);
+        // console.error(err);
+        console.error(`[PUT/tasks/${req.params.id}] Error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
 });
@@ -94,14 +101,17 @@ app.delete("/tasks/:id", async (req, res) => {
         const deletedTask = await Task.findByIdAndDelete(id);
 
         if (!deletedTask) {
+            console.warn(`[DELETE/tasks/${id}] Task not found.`);
             return res.status(404).json({ error: "Task cannot be found!" });
         }
 
+        console.log(`[DELETE/tasks/${id}] Task deleted successfully.`);
         res.json({
             message: "Task has been deleted successfully!",
             deletedTask,
         });
     } catch (err) {
+        console.error(`[DELETE/tasks/${req.params.id}] Error: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
 });
