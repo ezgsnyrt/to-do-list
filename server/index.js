@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 const app = express();
 app.use(express.json());
 
+const database_name = 'mytasksdatabase';
+
 mongoose
-    .connect("mongodb://localhost:27017/mynewdatabase")
+    .connect("mongodb://localhost:27017/" + database_name)
     .then(() => {
-        console.log("Connected to MongoDB");
+        console.log("Connected to MongoDB " + database_name);
     })
     .catch((err) => {
         console.error("Failed to connect to MongoDB", err);
@@ -45,6 +47,7 @@ const Task = mongoose.model("task", taskSchema);
 app.get("/tasks", async (req, res) => {
     try {
         const tasks = await Task.find();
+        console.log("tasks:", tasks);
         res.json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
