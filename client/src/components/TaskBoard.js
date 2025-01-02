@@ -8,17 +8,16 @@ import {
     faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
-const TaskBoard = ({ allTasks }) => {
-    const [tasks, setTasks] = useState(allTasks);
+const TaskBoard = ({ allTasks, onUpdateTask, onDeleteTask }) => {
     const [expandedTaskId, setExpandedTaskId] = useState(null);
     const [editingTaskId, setEditingTaskId] = useState(null);
     const [editedTaskTitle, setEditedTaskTitle] = useState("");
 
     // Sort tasks from high to low priority
-    const sortedTasks = [...tasks].sort((a, b) => {
-        const priorityOrder = { high: 1, medium: 2, low: 3 };
-        return priorityOrder[a.priority] - priorityOrder[b.priority];
-    });
+    const priorityOrder = { high: 1, medium: 2, low: 3 };
+    const sortedTasks = [...allTasks].sort(
+        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
+    );
 
     const toggleDropdown = (taskId) => {
         setExpandedTaskId((prevId) => (prevId === taskId ? null : taskId));
@@ -36,14 +35,8 @@ const TaskBoard = ({ allTasks }) => {
 
     // Save the edited task title and exit editing mode
     const saveTaskName = () => {
-        if (editingTaskId) {
-            setTasks((prevTasks) =>
-                prevTasks.map((task) =>
-                    task.id === editingTaskId
-                        ? { ...task, title: editedTaskTitle }
-                        : task
-                )
-            );
+        if (editingTaskId && editedTaskTitle.trim() !== "") {
+            onUpdateTask(editingTaskId, editedTaskTitle);
             setEditingTaskId(null);
             setEditedTaskTitle("");
         }
@@ -55,15 +48,8 @@ const TaskBoard = ({ allTasks }) => {
         }
     };
 
-    // Delete the task when delete-icon is clicked
-    const deleteTask = (taskId) => {
-        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-    };
-
     return (
         <div className="task-board">
-
-            {/* All Tasks Column */}
             <div className="task-column all-tasks">
                 <h2>All Tasks</h2>
                 <ul className="task-list">
@@ -87,8 +73,6 @@ const TaskBoard = ({ allTasks }) => {
                                 <span>{task.title}</span>
                             )}
                             <div className="task-actions">
-
-                                {/* Edit Icon */}
                                 <FontAwesomeIcon
                                     icon={faPencilAlt}
                                     className="icon edit-icon"
@@ -97,16 +81,12 @@ const TaskBoard = ({ allTasks }) => {
                                         startEditing(task.id, task.title)
                                     }
                                 />
-
-                                {/* Delete Icon */}
                                 <FontAwesomeIcon
                                     icon={faTrash}
                                     className="icon delete-icon"
                                     title="Delete"
-                                    onClick={() => deleteTask(task.id)}
+                                    onClick={() => onDeleteTask(task.id)}
                                 />
-
-                                {/* More Icon */}
                                 <div className="task-status-dropdown-container">
                                     <FontAwesomeIcon
                                         icon={faEllipsisV}
@@ -116,8 +96,6 @@ const TaskBoard = ({ allTasks }) => {
                                     />
                                     {expandedTaskId === task.id && (
                                         <div className="task-dropdown">
-
-                                            {/* Exit Button */}
                                             <button
                                                 className="dropdown-exit-button"
                                                 onClick={closeDropdown}
