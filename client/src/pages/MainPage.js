@@ -85,10 +85,22 @@ const MainPage = () => {
         ]);
     };
 
+    const updateTaskTitle = (taskId, newTitle) => {
+        setTasks((prevTasks) =>
+            prevTasks.map((task) =>
+                task.id === taskId ? { ...task, title: newTitle, updatedAt: new Date().toISOString() } : task
+            )
+        );
+    };
+
+    const deleteTask = (taskId) => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    };
+
     return (
         <>
             <TaskForm onSubmit={addTask} />
-            <TaskBoard allTasks={tasks} />
+            <TaskBoard allTasks={tasks} onUpdateTask={updateTaskTitle} onDeleteTask={deleteTask} />
         </>
     );
 };
