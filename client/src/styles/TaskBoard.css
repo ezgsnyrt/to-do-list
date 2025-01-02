@@ -1,6 +1,12 @@
 .task-board {
+    width: 50%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
 }
 
 .task-list {
@@ -24,6 +30,10 @@
     flex: 1;
     font-size: 1rem;
     color: #1a0b2a;
+}
+
+.error-message {
+    color: #f01945;
 }
 
 .task-actions {
@@ -129,4 +139,10 @@
 }
 .edit-task-input:focus {
     border-color: #6c788e;
+}
+
+@media (max-width: 768px) {
+    .task-board {
+        width: 100%;
+    }
 }

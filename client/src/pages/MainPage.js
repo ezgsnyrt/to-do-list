@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../styles/MainPage.css";
 import TaskForm from "../components/TaskForm";
 import TaskBoard from "../components/TaskBoard";
 
@@ -99,8 +100,11 @@ const MainPage = () => {
 
     return (
         <>
-            <TaskForm onSubmit={addTask} />
-            <TaskBoard allTasks={tasks} onUpdateTask={updateTaskTitle} onDeleteTask={deleteTask} />
+            <h1>TO-DO LIST</h1>
+            <div className="main-page">
+                <TaskForm onSubmit={addTask} />
+                <TaskBoard allTasks={tasks} onUpdateTask={updateTaskTitle} onDeleteTask={deleteTask} />
+            </div>
         </>
     );
 };

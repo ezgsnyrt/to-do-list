@@ -1,0 +1,21 @@
+h1 {
+    margin: 3rem 0;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.main-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 3rem;
+    padding: 1rem 2rem;
+}
+
+@media (max-width: 768px) {
+    .main-page {
+        flex-direction: column;
+        align-items: center;
+    }
+}
