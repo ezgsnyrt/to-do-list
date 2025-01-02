@@ -21,7 +21,7 @@ const TaskBoard = ({ allTasks }) => {
                                 {/* Edit Icon */}
                                 <FontAwesomeIcon
                                     icon={faPencilAlt}
-                                    className="icon"
+                                    className="icon edit-icon"
                                     title="Edit"
                                     onClick={() =>
                                         console.log(
@@ -33,7 +33,7 @@ const TaskBoard = ({ allTasks }) => {
                                 {/* Delete Icon */}
                                 <FontAwesomeIcon
                                     icon={faTrash}
-                                    className="icon"
+                                    className="icon delete-icon"
                                     title="Delete"
                                     onClick={() =>
                                         console.log(
@@ -46,7 +46,7 @@ const TaskBoard = ({ allTasks }) => {
                                 <div className="task-status-dropdown-container">
                                     <FontAwesomeIcon
                                         icon={faEllipsisV}
-                                        className="icon"
+                                        className="icon more-icon"
                                         title="For More"
                                         onClick={() =>
                                             console.log(

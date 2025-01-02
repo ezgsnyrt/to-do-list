@@ -1,0 +1,68 @@
+.task-board {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #d5dbdb;
+    border: 2px solid #bdc3c7;
+    border-radius: 10rem;
+}
+
+.task-list-item span {
+    flex: 1;
+    font-size: 1rem;
+    color: #364461;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 0.1rem;
+}
+
+.edit-icon {
+    color: #edc951;
+}
+
+.delete-icon {
+    color: #e02130;
+}
+
+.more-icon {
+    color: #666666;
+}
+
+.icon:hover {
+    transform: translateY(-5px);
+}
+
+.edit-icon:hover {
+    color: #f0b300;
+}
+
+.delete-icon:hover {
+    color: #ac2005;
+}
+
+.more-icon:hover {
+    color: #151101;
+}
