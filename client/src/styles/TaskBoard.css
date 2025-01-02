@@ -117,3 +117,16 @@
 .low-priority {
     background-color: #cfd5e1;
 }
+
+/* Edit task when clicked */
+.edit-task-input {
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 2px solid #98e9d0;
+    border-radius: 0.4rem;
+    outline: none;
+}
+.edit-task-input:focus {
+    border-color: #6c788e;
+}

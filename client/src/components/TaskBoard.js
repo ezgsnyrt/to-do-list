@@ -9,10 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const TaskBoard = ({ allTasks }) => {
+    const [tasks, setTasks] = useState(allTasks);
     const [expandedTaskId, setExpandedTaskId] = useState(null);
+    const [editingTaskId, setEditingTaskId] = useState(null);
+    const [editedTaskTitle, setEditedTaskTitle] = useState("");
 
     // Sort tasks from high to low priority
-    const sortedTasks = [...allTasks].sort((a, b) => {
+    const sortedTasks = [...tasks].sort((a, b) => {
         const priorityOrder = { high: 1, medium: 2, low: 3 };
         return priorityOrder[a.priority] - priorityOrder[b.priority];
     });
@@ -23,6 +26,38 @@ const TaskBoard = ({ allTasks }) => {
 
     const closeDropdown = () => {
         setExpandedTaskId(null);
+    };
+
+    // Edit the task when edit-icon is clicked
+    const startEditing = (taskId, currentTitle) => {
+        setEditingTaskId(taskId);
+        setEditedTaskTitle(currentTitle);
+    };
+
+    // Save the edited task title and exit editing mode
+    const saveTaskName = () => {
+        if (editingTaskId) {
+            setTasks((prevTasks) =>
+                prevTasks.map((task) =>
+                    task.id === editingTaskId
+                        ? { ...task, title: editedTaskTitle }
+                        : task
+                )
+            );
+            setEditingTaskId(null);
+            setEditedTaskTitle("");
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            saveTaskName();
+        }
+    };
+
+    // Delete the task when delete-icon is clicked
+    const deleteTask = (taskId) => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     };
 
     return (
@@ -37,7 +72,20 @@ const TaskBoard = ({ allTasks }) => {
                             key={task.id}
                             className={`task-list-item ${task.priority}-priority`}
                         >
-                            <span>{task.title}</span>
+                            {editingTaskId === task.id ? (
+                                <input
+                                    type="text"
+                                    value={editedTaskTitle}
+                                    onChange={(e) =>
+                                        setEditedTaskTitle(e.target.value)
+                                    }
+                                    onKeyDown={handleKeyDown}
+                                    onBlur={saveTaskName}
+                                    className="edit-task-input"
+                                />
+                            ) : (
+                                <span>{task.title}</span>
+                            )}
                             <div className="task-actions">
 
                                 {/* Edit Icon */}
@@ -46,9 +94,7 @@ const TaskBoard = ({ allTasks }) => {
                                     className="icon edit-icon"
                                     title="Edit"
                                     onClick={() =>
-                                        console.log(
-                                            `Edit the task: ${task.title}`
-                                        )
+                                        startEditing(task.id, task.title)
                                     }
                                 />
 
@@ -57,11 +103,7 @@ const TaskBoard = ({ allTasks }) => {
                                     icon={faTrash}
                                     className="icon delete-icon"
                                     title="Delete"
-                                    onClick={() =>
-                                        console.log(
-                                            `Delete the task: ${task.title}`
-                                        )
-                                    }
+                                    onClick={() => deleteTask(task.id)}
                                 />
 
                                 {/* More Icon */}
