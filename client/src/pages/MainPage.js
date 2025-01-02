@@ -101,7 +101,7 @@ const MainPage = () => {
     return (
         <>
             <h1>TO-DO LIST</h1>
-            <div className="main-page">
+            <div className="component-wrapper">
                 <TaskForm onSubmit={addTask} />
                 <TaskBoard allTasks={tasks} onUpdateTask={updateTaskTitle} onDeleteTask={deleteTask} />
             </div>
