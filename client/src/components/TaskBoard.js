@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/TaskBoard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPencilAlt,
     faTrash,
     faEllipsisV,
+    faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 
 const TaskBoard = ({ allTasks }) => {
+    const [expandedTaskId, setExpandedTaskId] = useState(null);
+
+    const toggleDropdown = (taskId) => {
+        setExpandedTaskId((prevId) => (prevId === taskId ? null : taskId));
+    };
+
+    const closeDropdown = () => {
+        setExpandedTaskId(null);
+    };
+
     return (
         <div className="task-board">
+
             {/* All Tasks Column */}
             <div className="task-column all-tasks">
                 <h2>All Tasks</h2>
@@ -18,6 +30,7 @@ const TaskBoard = ({ allTasks }) => {
                         <li key={task.id} className="task-list-item">
                             <span>{task.title}</span>
                             <div className="task-actions">
+
                                 {/* Edit Icon */}
                                 <FontAwesomeIcon
                                     icon={faPencilAlt}
@@ -42,18 +55,42 @@ const TaskBoard = ({ allTasks }) => {
                                     }
                                 />
 
-                                {/* For More */}
+                                {/* More Icon */}
                                 <div className="task-status-dropdown-container">
                                     <FontAwesomeIcon
                                         icon={faEllipsisV}
                                         className="icon more-icon"
                                         title="For More"
-                                        onClick={() =>
-                                            console.log(
-                                                `See details of the task: ${task.title}`
-                                            )
-                                        }
+                                        onClick={() => toggleDropdown(task.id)}
                                     />
+                                    {expandedTaskId === task.id && (
+                                        <div className="task-dropdown">
+
+                                            {/* Exit Button */}
+                                            <button
+                                                className="dropdown-exit-button"
+                                                onClick={closeDropdown}
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTimes}
+                                                />
+                                            </button>
+                                            <p>
+                                                <strong>Description:</strong>{" "}
+                                                {task.description}
+                                            </p>
+                                            <p>
+                                                <strong>Due Date:</strong>{" "}
+                                                {new Date(
+                                                    task.dueDate
+                                                ).toLocaleDateString()}
+                                            </p>
+                                            <p>
+                                                <strong>Priority:</strong>{" "}
+                                                {task.priority}
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </li>
