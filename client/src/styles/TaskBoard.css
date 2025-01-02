@@ -16,14 +16,14 @@
     padding: 1rem;
     margin-bottom: 0.5rem;
     background-color: #d5dbdb;
-    border: 2px solid #bdc3c7;
+    border: 2px solid #586875;
     border-radius: 10rem;
 }
 
 .task-list-item span {
     flex: 1;
     font-size: 1rem;
-    color: #364461;
+    color: #1a0b2a;
 }
 
 .task-actions {
@@ -101,7 +101,19 @@
 }
 
 .task-dropdown p {
-    margin: 0.5rem 0;
+    margin: 0.6rem 0;
     font-size: 0.9rem;
     color: #383845;
+}
+
+.high-priority {
+    background-color: #6c788e;
+}
+
+.medium-priority {
+    background-color: #a6aec1;
+}
+
+.low-priority {
+    background-color: #cfd5e1;
 }

@@ -11,6 +11,12 @@ import {
 const TaskBoard = ({ allTasks }) => {
     const [expandedTaskId, setExpandedTaskId] = useState(null);
 
+    // Sort tasks from high to low priority
+    const sortedTasks = [...allTasks].sort((a, b) => {
+        const priorityOrder = { high: 1, medium: 2, low: 3 };
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+
     const toggleDropdown = (taskId) => {
         setExpandedTaskId((prevId) => (prevId === taskId ? null : taskId));
     };
@@ -26,8 +32,11 @@ const TaskBoard = ({ allTasks }) => {
             <div className="task-column all-tasks">
                 <h2>All Tasks</h2>
                 <ul className="task-list">
-                    {allTasks.map((task) => (
-                        <li key={task.id} className="task-list-item">
+                    {sortedTasks.map((task) => (
+                        <li
+                            key={task.id}
+                            className={`task-list-item ${task.priority}-priority`}
+                        >
                             <span>{task.title}</span>
                             <div className="task-actions">
 
