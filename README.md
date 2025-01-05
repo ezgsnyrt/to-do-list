@@ -1,20 +1,53 @@
 # To-Do List Application
+This frontend project is a **React.js-based To-Do List application** that allows users to efficiently create, update, and manage their tasks. It is designed to be **simple**, **intuitive**, and **responsive**, making it an ideal solution for task management.
 
-This project is a **React.js-based To-Do List application** that allows users to efficiently create, update, and manage their tasks. It is designed to be **simple**, **intuitive**, and **responsive**, making it an ideal solution for task management.
+This project has been developed separately as part of a **MERN stack** implementation and works independently from the `server` folder present in the repository. In the upcoming days, the `main` branch will contain the full MERN stack project.
 
-## Features
+## 🛠️ Tech Stack
 
-- **Add Tasks**: Users can create new tasks by providing a name, description, priority level (High, Medium, Low), and due date using the form. Completing all the input fields is a requirement for the new task to be created via form.
-- **Edit Tasks**: Modify existing tasks, including updating their names or details by clicking on the pencil icon at the right side of each task item.
-- **Delete Tasks**: Remove tasks that are no longer needed by clicking on trash bin icon.
-- **Details of Task Items**: Click on the icon with three dots at the right side of each task item to get more information about it.
-- **Priority Sorting**: Automatically sort tasks based on their priority (`High`, `Medium`, `Low`). This means that when users create a new task with high priority it is displayed through the top of the task list.
-- **Responsive Design**: The app adapts seamlessly to different screen sizes.
+- ⚛️ **REACT.JS**
+- 🌐 **HTML5**
+- 🎨 **CSS3**
+- 🎯 **FontAwesome**
 
----
 
-## Note
+## 📦 Project Structure
 
-This project is a **frontend-only application** and works independently from the `server` folder present in the repository.
+### 📂 Components
+- **`MainPage.js`** – Manages the task list, handles **state** and task operations (add, edit, delete).
+- **`TaskForm.js`** – A controlled form for creating tasks with **validation**.
+- **`TaskBoard.js`** – Displays tasks, enables **editing**, **deleting**, and viewing **task details**.
 
-The `server` folder exists because the backend for this project was developed separately as part of a MERN stack implementation. A related **Medium post** explaining the backend project has already been published. In the upcoming days, the `main` branch will contain the full MERN stack version of this project.
+
+## 🚀 Features
+
+### ➕ Add Tasks
+- Users can create new tasks by providing:
+  - **Name**
+  - **Description**
+  - **Priority Level (High, Medium, Low)**
+  - **Due Date**
+- **✅ Form Validation:** Tasks cannot be added unless all fields are completed. Error messages guide users when fields are left blank.
+
+### ✏️ Edit Tasks
+- Users can modify **task titles** inline by clicking the **pencil icon**.
+- Press **Enter** or lose focus (`onBlur`) to save changes.
+
+### 🗑️ Delete Tasks
+- Tasks can be deleted using the **trash bin icon**.
+
+### ℹ️ Task Details
+- Click the **three dots icon** to view more task details such as:
+  - **Description**
+  - **Due Date**
+  - **Priority Level**
+
+### 📊 Priority Sorting
+- Tasks are **automatically sorted** by priority:
+  - **High (Top Priority)** ⬆️
+  - **Medium**
+  - **Low (Lowest Priority)** ⬇️
+- Ensures important tasks are highlighted at the top.
+
+### 📱 Responsive Design
+- The application is fully responsive with **CSS media queries** optimizing for **desktop, tablet, and mobile** screen sizes.
