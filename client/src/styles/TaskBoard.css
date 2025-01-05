@@ -172,15 +172,15 @@ h2 {
     }
 
     .task-list-item {
-        padding: 1rem;
+        padding: 0.4rem;
     }
 
     .task-list-item span {
         font-size: 0.9rem;
-        margin-right: 0.3rem;
+        margin-right: 0.2rem;
     }
 
     .icon {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
