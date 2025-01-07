@@ -60,7 +60,7 @@ app.post("/tasks", async (req, res) => {
     try {
         if (!req.body.title) {
             console.warn(`[POST/tasks] Validation failed: Title is required.`);
-            return res.status(400).json({ error: "Title is required" });
+            res.status(400).json({ error: "Title is required" });
         }
 
         const newTask = new Task(req.body);
@@ -80,7 +80,7 @@ app.put("/tasks/:id", async (req, res) => {
 
         if (!updatedTask) {
             console.warn(`[PUT/tasks/${id}] Task not found.`);
-            return res.status(404).json({ error: "Task cannot be found!" });
+            res.status(404).json({ error: "Task cannot be found!" });
         }
 
         console.log(`[PUT/tasks/${id}] Task updated successfully.`);
@@ -102,7 +102,7 @@ app.delete("/tasks/:id", async (req, res) => {
 
         if (!deletedTask) {
             console.warn(`[DELETE/tasks/${id}] Task not found.`);
-            return res.status(404).json({ error: "Task cannot be found!" });
+            res.status(404).json({ error: "Task cannot be found!" });
         }
 
         console.log(`[DELETE/tasks/${id}] Task deleted successfully.`);
